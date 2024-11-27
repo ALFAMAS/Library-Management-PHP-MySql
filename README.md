@@ -1,4 +1,4 @@
-lms-php-app
+# Library Management App
 This repository is for my PHP MySQL Library Management System that i have done for a project in college for Web services & Applications
 
 
@@ -11,8 +11,11 @@ https://aleksandartrifunovic1.000webhostapp.com/
 If you want to check out admin panel you need to have following credentials :
 
 username : admin
-password : admin!!123
+password : admin
+
+# User Login 
+
+username : arafat0951@gmail.com
+password : arafat
 
 Of course this credentials only work for admin registrations
-
-
