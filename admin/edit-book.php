@@ -16,7 +16,7 @@ $author=$_POST['author'];
 $isbn=$_POST['isbn'];
 $price=$_POST['price'];
 $bookid=intval($_GET['bookid']);
-$sql="update  tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,ISBNNumber=:isbn,BookPrice=:price where id=:bookid";
+$sql="update  tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,totalBook=:isbn,BookPrice=:price where id=:bookid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
@@ -38,7 +38,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Edit Book</title>
+    <title>University Library Management System | Edit Book</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -73,7 +73,7 @@ Book Info
 <form role="form" method="post">
 <?php 
 $bookid=intval($_GET['bookid']);
-$sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
+$sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.totalBook,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
 $query->execute();
@@ -143,13 +143,12 @@ continue;
 </div>
 
 <div class="form-group">
-<label>ISBN Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber);?>"  required="required" />
-<p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+<label>Total Number<span style="color:red;">*</span></label>
+<input class="form-control" type="number" name="isbn" value="<?php echo htmlentities($result->totalBook);?>"  required="required" />
 </div>
 
  <div class="form-group">
- <label>Price in USD<span style="color:red;">*</span></label>
+ <label>Price<span style="color:red;">*</span></label>
  <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->BookPrice);?>"   required="required" />
  </div>
  <?php }} ?>

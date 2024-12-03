@@ -34,7 +34,7 @@ header('location:manage-issued-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Issued Book Details</title>
+    <title>University Library Management System | Issued Book Details</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -108,7 +108,7 @@ Issued Book Details
 <form role="form" method="post">
 <?php 
 $rid=intval($_GET['rid']);
-$sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=:rid";
+$sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=:rid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':rid',$rid,PDO::PARAM_STR);
 $query->execute();
@@ -133,10 +133,10 @@ foreach($results as $result)
 </div>
 
 
-<div class="form-group">
+<!-- <div class="form-group">
 <label>ISBN :</label>
 <?php echo htmlentities($result->ISBNNumber);?>
-</div>
+</div> -->
 
 <div class="form-group">
 <label>Book Issued Date :</label>
@@ -158,7 +158,7 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<label>Fine (in USD) :</label>
+<label>Fine :</label>
 <?php 
 if($result->fine=="")
 {?>

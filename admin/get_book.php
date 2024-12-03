@@ -3,7 +3,7 @@ require_once("includes/config.php");
 if(!empty($_POST["bookid"])) {
   $bookid=$_POST["bookid"];
  
-    $sql ="SELECT BookName,id FROM tblbooks WHERE (ISBNNumber=:bookid)";
+    $sql ="SELECT BookName,id FROM tblbooks WHERE (BookName=:bookid)";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':bookid', $bookid, PDO::PARAM_STR);
 $query-> execute();

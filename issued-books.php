@@ -28,7 +28,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Issued Books</title>
+    <title>University Library Management System | Manage Issued Books</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -67,16 +67,15 @@ header('location:manage-books.php');
                                         <tr>
                                             <th>#</th>
                                             <th>Book Name</th>
-                                            <th>ISBN </th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>
-                                            <th>Fine in(USD)</th>
+                                            <th>Fine</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 <?php 
 $sid=$_SESSION['stdid'];
-$sql="SELECT tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId=:sid order by tblissuedbookdetails.id desc";
+$sql="SELECT tblbooks.BookName,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId=:sid order by tblissuedbookdetails.id desc";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':sid', $sid, PDO::PARAM_STR);
 $query->execute();
@@ -89,7 +88,6 @@ foreach($results as $result)
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
                                             <td class="center"><?php echo htmlentities($result->BookName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
                                             <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
                                             <td class="center"><?php if($result->ReturnDate=="")
                                             {?>

@@ -28,7 +28,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Books</title>
+    <title>University Library Management System | Manage Books</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -115,13 +115,15 @@ header('location:manage-books.php');
                                             <th>Book Name</th>
                                             <th>Category</th>
                                             <th>Author</th>
-                                            <th>ISBN</th>
+                                            <th>Total Book</th>
+                                            <th>Issued Book</th>
+                                            <th>Available</th>
                                             <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+<?php $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.totalBook,tblbooks.BookPrice,tblbooks.id as bookid,(SELECT COUNT(*) FROM tblissuedbookdetails WHERE tblissuedbookdetails.BookId = tblbooks.id and tblissuedbookdetails.RetrunStatus=0) as issuedBookCount from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -135,7 +137,9 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->BookName);?></td>
                                             <td class="center"><?php echo htmlentities($result->CategoryName);?></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
+                                            <td class="center"><?php echo htmlentities($result->totalBook);?></td>
+                                            <td class="center"><?php echo htmlentities($result->issuedBookCount);?></td>
+                                            <td class="center"><?php echo htmlentities($result->totalBook-$result->issuedBookCount);?></td>
                                             <td class="center"><?php echo htmlentities($result->BookPrice);?></td>
                                             <td class="center">
 

@@ -18,7 +18,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Manage Issued Books</title>
+    <title>University Library Management System | Manage Issued Books</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -95,14 +95,14 @@ else{
                                             <th>#</th>
                                             <th>Student Name</th>
                                             <th>Book Name</th>
-                                            <th>ISBN </th>
+                                            <th>Fine</th>
                                             <th>Issued Date</th>
                                             <th>Return Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc";
+<?php $sql = "SELECT tblstudents.FullName,tblbooks.BookName,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.RetrunStatus=1,tblissuedbookdetails.id DESC";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -115,21 +115,25 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
                                             <td class="center"><?php echo htmlentities($result->FullName);?></td>
                                             <td class="center"><?php echo htmlentities($result->BookName);?></td>
-                                            <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
+                                            <td class="center"><?php if($result->fine==null)
+                                            {
+                                                echo htmlentities(0);
+                                            } else {
+                                            echo htmlentities($result->fine);
+                                            }?></td>
                                             <td class="center"><?php echo htmlentities($result->IssuesDate);?></td>
                                             <td class="center"><?php if($result->ReturnDate=="")
                                             {
                                                 echo htmlentities("Not Return Yet");
                                             } else {
-
-
                                             echo htmlentities($result->ReturnDate);
 }
                                             ?></td>
                                             <td class="center">
-
+                                            <?php if($result->ReturnDate==""){?>
                                             <a href="update-issue-bookdeails.php?rid=<?php echo htmlentities($result->rid);?>"><button class="btn btn-primary"><i class="fa fa-edit "></i> Edit</button> 
-                                         
+    <?php } else {} ?>
+
                                             </td>
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      

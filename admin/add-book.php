@@ -13,14 +13,14 @@ if(isset($_POST['add']))
 $bookname=$_POST['bookname'];
 $category=$_POST['category'];
 $author=$_POST['author'];
-$isbn=$_POST['isbn'];
+$bookNo=$_POST['bookNo'];
 $price=$_POST['price'];
-$sql="INSERT INTO  tblbooks(BookName,CatId,AuthorId,ISBNNumber,BookPrice) VALUES(:bookname,:category,:author,:isbn,:price)";
+$sql="INSERT INTO  tblbooks(BookName,CatId,AuthorId,BookPrice,totalBook) VALUES(:bookname,:category,:author,:price,:nookNo)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':bookname',$bookname,PDO::PARAM_STR);
 $query->bindParam(':category',$category,PDO::PARAM_STR);
 $query->bindParam(':author',$author,PDO::PARAM_STR);
-$query->bindParam(':isbn',$isbn,PDO::PARAM_STR);
+$query->bindParam(':bookNo',$bookNo,PDO::PARAM_STR);
 $query->bindParam(':price',$price,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
@@ -44,7 +44,7 @@ header('location:manage-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Add Book</title>
+    <title>University Library Management System | Add Book</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -125,9 +125,8 @@ foreach($results as $result)
 </div>
 
 <div class="form-group">
-<label>ISBN Number<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="isbn"  required="required" autocomplete="off"  />
-<p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+<label>Number of book<span style="color:red;">*</span></label>
+<input class="form-control" type="number" name="bookNo"  required="required" autocomplete="off"  />
 </div>
 
  <div class="form-group">

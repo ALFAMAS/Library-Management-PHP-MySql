@@ -10,7 +10,7 @@ https://aleksandartrifunovic1.000webhostapp.com/
 
 If you want to check out admin panel you need to have following credentials :
 
-username : admin
+username : ashik
 password : admin
 
 # User Login 

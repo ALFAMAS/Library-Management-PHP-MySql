@@ -11,7 +11,22 @@ else{
 if(isset($_POST['issue']))
 {
 $studentid=strtoupper($_POST['studentid']);
-$bookid=$_POST['bookdetails'];
+$bookid=intval($_GET['bookid']);
+
+$check_query = $dbh->prepare("SELECT COUNT(*) FROM tblissuedbookdetails 
+    WHERE StudentID = :studentid AND BookId = :bookid AND RetrunStatus = 0");
+$check_query->bindParam(':studentid', $studentid, PDO::PARAM_STR);
+$check_query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
+$check_query->execute();
+$book_already_issued = $check_query->fetchColumn();
+
+if ($book_already_issued > 0) {
+    // Book is already active for this student
+    $_SESSION['error'] = "This book is already issued to the student.";
+    header('location:manage-issued-books.php');
+    exit();
+}
+
 $sql="INSERT INTO  tblissuedbookdetails(StudentID,BookId) VALUES(:studentid,:bookid)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':studentid',$studentid,PDO::PARAM_STR);
@@ -38,7 +53,7 @@ header('location:manage-issued-books.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Online Library Management System | Issue a new Book</title>
+    <title>University Library Management System | Issue a new Book</title>
     <!-- BOOTSTRAP CORE STYLE  -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONT AWESOME STYLE  -->
@@ -120,20 +135,6 @@ Issue a New Book
 <span id="get_student_name" style="font-size:16px;"></span> 
 </div>
 
-
-
-
-
-<div class="form-group">
-<label>ISBN Number or Book Title<span style="color:red;">*</span></label>
-<input class="form-control" type="text" name="booikid" id="bookid" onBlur="getbook()"  required="required" />
-</div>
-
- <div class="form-group">
-
-  <select  class="form-control" name="bookdetails" id="get_book_name" readonly>
-   
- </select>
  </div>
 <button type="submit" name="issue" id="submit" class="btn btn-info">Issue Book </button>
 
@@ -160,3 +161,4 @@ Issue a New Book
 </body>
 </html>
 <?php } ?>
+

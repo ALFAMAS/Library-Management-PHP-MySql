@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 06:47 PM
+-- Generation Time: Dec 03, 2024 at 08:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `FullName`, `AdminEmail`, `UserName`, `Password`, `updationDate`) VALUES
-(1, 'Anuj Kumar', 'phpgurukulofficial@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3', '2024-11-27 17:40:02');
+(1, 'MAS ASHIKUR RAHMAN  ', 'ashik@gmail.com', 'ashik', '21232f297a57a5a743894a0e4a801fc3', '2024-12-03 15:23:26');
 
 -- --------------------------------------------------------
 
@@ -64,10 +64,7 @@ INSERT INTO `tblauthors` (`id`, `AuthorName`, `creationDate`, `UpdationDate`) VA
 (1, 'Anuj kumar', '2017-07-08 12:49:09', '2017-07-08 15:16:59'),
 (2, 'Chetan Bhagatt', '2017-07-08 14:30:23', '2017-07-08 15:15:09'),
 (3, 'Anita Desai 2', '2017-07-08 14:35:08', '2024-11-27 17:42:26'),
-(4, 'HC Verma', '2017-07-08 14:35:21', NULL),
-(5, 'R.D. Sharma ', '2017-07-08 14:35:36', NULL),
-(9, 'fwdfrwer', '2017-07-08 15:22:03', NULL),
-(10, 'ALFAMAS', '2024-11-27 17:42:36', NULL);
+(4, 'HC Verma', '2017-07-08 14:35:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -80,8 +77,8 @@ CREATE TABLE `tblbooks` (
   `BookName` varchar(255) DEFAULT NULL,
   `CatId` int(11) DEFAULT NULL,
   `AuthorId` int(11) DEFAULT NULL,
-  `ISBNNumber` int(11) DEFAULT NULL,
   `BookPrice` int(11) DEFAULT NULL,
+  `totalBook` int(11) NOT NULL,
   `RegDate` timestamp NULL DEFAULT current_timestamp(),
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -90,10 +87,10 @@ CREATE TABLE `tblbooks` (
 -- Dumping data for table `tblbooks`
 --
 
-INSERT INTO `tblbooks` (`id`, `BookName`, `CatId`, `AuthorId`, `ISBNNumber`, `BookPrice`, `RegDate`, `UpdationDate`) VALUES
-(1, 'PHP And MySql programming', 5, 1, 222333, 20, '2017-07-08 20:04:55', '2017-07-15 05:54:41'),
-(3, 'physics', 6, 4, 1111, 15, '2017-07-08 20:17:31', '2017-07-15 06:13:17'),
-(4, 'The Last Of Us', 5, 10, 1727706200, 1000, '2024-11-27 17:43:07', NULL);
+INSERT INTO `tblbooks` (`id`, `BookName`, `CatId`, `AuthorId`, `BookPrice`, `totalBook`, `RegDate`, `UpdationDate`) VALUES
+(1, 'PHP And MySql programming', 5, 1, 20, 5, '2017-07-08 20:04:55', '2024-12-03 15:17:32'),
+(3, 'physics', 6, 4, 15, 8, '2017-07-08 20:17:31', '2024-12-03 15:17:42'),
+(4, 'The Last Of Us', 5, 1, 100, 20, '2024-11-27 17:43:07', '2024-12-03 19:27:59');
 
 -- --------------------------------------------------------
 
@@ -117,8 +114,8 @@ INSERT INTO `tblcategory` (`id`, `CategoryName`, `Status`, `CreationDate`, `Upda
 (4, 'Romantic', 1, '2017-07-04 18:35:25', '2017-07-06 16:00:42'),
 (5, 'Technology', 1, '2017-07-04 18:35:39', '2017-07-08 17:13:03'),
 (6, 'Science', 1, '2017-07-04 18:35:55', '0000-00-00 00:00:00'),
-(7, 'Management', 0, '2017-07-04 18:36:16', '0000-00-00 00:00:00'),
-(8, 'Sci-Fi', 0, '2024-11-27 17:42:09', '2024-11-27 17:42:13');
+(7, 'Management', 1, '2017-07-04 18:36:16', '2024-12-03 16:28:11'),
+(8, 'Sci-Fi', 1, '2024-11-27 17:42:09', '2024-12-03 16:28:14');
 
 -- --------------------------------------------------------
 
@@ -141,14 +138,7 @@ CREATE TABLE `tblissuedbookdetails` (
 --
 
 INSERT INTO `tblissuedbookdetails` (`id`, `BookId`, `StudentID`, `IssuesDate`, `ReturnDate`, `RetrunStatus`, `fine`) VALUES
-(1, 1, 'SID002', '2017-07-15 06:09:47', '2017-07-15 11:15:20', 1, 0),
-(2, 1, 'SID002', '2017-07-15 06:12:27', '2017-07-15 11:15:23', 1, 5),
-(3, 3, 'SID002', '2017-07-15 06:13:40', NULL, 0, NULL),
-(4, 3, 'SID002', '2017-07-15 06:23:23', '2017-07-15 11:22:29', 1, 2),
-(5, 1, 'SID009', '2017-07-15 10:59:26', NULL, 0, NULL),
-(6, 3, 'SID011', '2017-07-15 18:02:55', NULL, 0, NULL),
-(7, 4, 'SID002', '2024-11-27 17:44:07', '2024-11-27 17:44:15', 1, 10),
-(8, 4, '1', '2024-11-27 17:45:39', '2024-11-27 17:46:05', 1, 0);
+(14, 3, '2', '2024-12-03 16:29:57', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -173,12 +163,9 @@ CREATE TABLE `tblstudents` (
 --
 
 INSERT INTO `tblstudents` (`id`, `StudentId`, `FullName`, `EmailId`, `MobileNumber`, `Password`, `Status`, `RegDate`, `UpdationDate`) VALUES
-(1, 'SID002', 'Anuj kumar', 'anuj.lpu1@gmail.com', '9865472555', 'f925916e2754e5e03f75dd58a5733251', 1, '2017-07-11 15:37:05', '2017-07-15 18:26:21'),
-(4, 'SID005', 'sdfsd', 'csfsd@dfsfks.com', '8569710025', '92228410fc8b872914e023160cf4ae8f', 0, '2017-07-11 15:41:27', '2017-07-15 17:43:03'),
-(8, 'SID009', 'test', 'test@gmail.com', '2359874527', 'f925916e2754e5e03f75dd58a5733251', 1, '2017-07-11 15:58:28', '2017-07-15 13:42:44'),
-(9, 'SID010', 'Amit', 'amit@gmail.com', '8585856224', 'f925916e2754e5e03f75dd58a5733251', 1, '2017-07-15 13:40:30', NULL),
-(10, 'SID011', 'Sarita Pandey', 'sarita@gmail.com', '4672423754', 'f925916e2754e5e03f75dd58a5733251', 1, '2017-07-15 18:00:59', NULL),
-(11, '1', 'ALFAMS', 'arafat0951@gmail.com', '0172770620', '0f0a24fb6d926e172d2d2f7a61444560', 1, '2024-11-27 17:44:51', NULL);
+(11, '1', 'ALFAMS', 'arafat0951@gmail.com', '0172770620', '0f0a24fb6d926e172d2d2f7a61444560', 1, '2024-11-27 17:44:51', '2024-12-03 16:30:35'),
+(12, '2', 'MAS Ashikur Rahman Hridoy', 'a@a.com', '1556645889', '3b712de48137572f3849aabd5666a4e3', 1, '2024-12-03 13:29:41', '2024-12-03 15:20:51'),
+(13, '3', 'MAS Yasin Arafat', 'aa@a.com', '1727706201', '3b712de48137572f3849aabd5666a4e3', 1, '2024-12-03 15:25:50', NULL);
 
 --
 -- Indexes for dumped tables
@@ -253,13 +240,13 @@ ALTER TABLE `tblcategory`
 -- AUTO_INCREMENT for table `tblissuedbookdetails`
 --
 ALTER TABLE `tblissuedbookdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tblstudents`
 --
 ALTER TABLE `tblstudents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
