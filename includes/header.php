@@ -6,9 +6,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >
-
-                    <img src="assets/img/logo.png" />
+                <a class="navbar-brand">
+                    <img src="assets/img/logo.png" style="width: 200px; height: auto;" />
                 </a>
 
             </div>
@@ -41,9 +40,12 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="change-password.php">Change Password</a></li>
                                 </ul>
                             </li>
-                            <li><a href="issued-books.php">Issued Books</a></li>
-                          
-
+                            <li>
+                            <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Books <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="book-list.php">Book List</a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="issued-books.php">Issued Books</a></li>
+                                </ul>                          
                         </ul>
                     </div>
                 </div>
